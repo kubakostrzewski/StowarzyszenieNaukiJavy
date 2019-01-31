@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.kostrzej.simpleToDoApp.components.user.User;
 import pl.kostrzej.simpleToDoApp.components.user.UserRepository;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 
 @Service
@@ -29,5 +30,10 @@ public class TaskService {
         taskRepository.save(task);
         return userRepository.findByLogin(user.getLogin());
 
+    }
+    @Transactional
+    public void deleteTask(Task task){
+        System.out.println(task);
+        taskRepository.delete(task);
     }
 }

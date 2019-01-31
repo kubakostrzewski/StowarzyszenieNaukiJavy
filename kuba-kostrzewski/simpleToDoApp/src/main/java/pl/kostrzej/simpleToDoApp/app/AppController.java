@@ -3,6 +3,7 @@ package pl.kostrzej.simpleToDoApp.app;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import pl.kostrzej.simpleToDoApp.components.login.LoginController;
+import pl.kostrzej.simpleToDoApp.components.task.Task;
 import pl.kostrzej.simpleToDoApp.components.task.TaskController;
 import pl.kostrzej.simpleToDoApp.components.user.User;
 import pl.kostrzej.simpleToDoApp.components.user.UserController;
@@ -56,6 +57,12 @@ public class AppController {
                 case ADD_NEW_TASK:
                     user = taskController.addTask(user);
                     break;
+                case DELETE_TASK:
+                    if (!user.getTasks().isEmpty()){
+                        taskController.showAllUserTasks(user);
+                        taskController.deleteTask(chooseUserTask(user));
+                    }
+                    break;
                 case EXIT:
                     exit = true;
                     break;
@@ -104,6 +111,12 @@ public class AppController {
             }
         }
         return option;
+    }
+    private Task chooseUserTask(User user){
+        System.out.println("Podaj nr zadania do usunięcia: ");
+        int taskIndex = scanner.nextInt();
+        scanner.nextLine();
+        return user.getTasks().get(taskIndex - 1);
     }
 }
 

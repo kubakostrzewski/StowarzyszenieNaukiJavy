@@ -2,6 +2,7 @@ package pl.kostrzej.simpleToDoApp.components.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import pl.kostrzej.simpleToDoApp.components.user.User;
 import pl.kostrzej.simpleToDoApp.components.validator.FieldValidator;
 
@@ -40,6 +41,12 @@ public class TaskConsoleController implements TaskController {
         date = readDate();
         done = readDone();
         return taskService.addTask(user, title, description, date, done);
+    }
+
+    @Override
+    public void deleteTask(Task task) {
+        System.out.println(task);
+        taskService.deleteTask(task);
     }
 
     @Override
